@@ -2,13 +2,14 @@ h1.	acts_as_versioned_with_changes
 
 Fork of technoweenie’s acts_as_versioned gem. My fork just adds a serialized 'changes' column to the versioned table which you can use do show the changes that were made in this version against the original eg:
 
-version.changes.each_pair do |key,values|
-
-	Field: <%= key %>
-		Original: <%= values.first % >
- 	  Updated: <%= value.last %>
+	<% version.changes.each_pair do |key,values| %>
+		Field: <%= key %><br />
+		Original: <%= values.first %><br />
+	 	Updated: <%= value.last %>
+	<% end %>   
 
 h2. Install: 
+
 1. cd vendor/gems
 2. git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
 3. Add a migration:
@@ -30,7 +31,7 @@ h2. Install:
 	end
 
 h2. Usage
-                                              s
+
 Same as acts_as_versioned, just adds a serialized changes column if you need a hash to indicate the changes made from one version to the next.   
          
 
