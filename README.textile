@@ -13,7 +13,7 @@ h2. Install:
 # cd vendor/gems
 # git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
 # Add a migration:       
-	<pre>class VersionTable &gt; ActiveRecord::Migration
+	<pre>class VersionTable > ActiveRecord::Migration
 		def self.up
 	  	Article.create_versioned_table
 		end
@@ -22,9 +22,9 @@ h2. Install:
 	  end
 	end</pre>   
 # In your model:
-	class Article &gt; ActiveRecord::Base
+	<pre>class Article > ActiveRecord::Base
 	  acts_as_versioned_with_changes
-	end
+	end</pre>
 
 h2. Usage
 
