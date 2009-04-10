@@ -23,7 +23,7 @@ h2. Install:
 	end</pre>   
 # In your model:
 	<pre>class Article > ActiveRecord::Base
-	  acts_as_versioned_with_changes
+  acts_as_versioned_with_changes
 end</pre>
 
 h2. Usage
