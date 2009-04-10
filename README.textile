@@ -10,11 +10,11 @@ Fork of technoweenie’s acts_as_versioned gem. My fork just adds a serialized '
 
 h2. Install: 
 
-1. cd vendor/gems
-2. git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
-3. Add a migration:
+# cd vendor/gems
+# git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
+# Add a migration:
 
-	class VersionTable < ActiveRecord::Migration
+	class VersionTable &gt; ActiveRecord::Migration
 	  def self.up
 	    Article.create_versioned_table
 	  end
@@ -24,9 +24,9 @@ h2. Install:
 	  end
 	end
       
-4. In your model:
+# In your model:
 
-	class Article < ActiveRecord::Base
+	class Article &gt; ActiveRecord::Base
 	  acts_as_versioned_with_changes
 	end
 
