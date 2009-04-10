@@ -1,28 +1,36 @@
-= acts_as_versioned
+h1.	acts_as_versioned_with_changes
 
-This library adds simple versioning to an ActiveRecord module.  ActiveRecord is required.
+Fork of technoweenie’s acts_as_versioned gem. My fork just adds a serialized 'changes' column to the versioned table which you can use do show the changes that were made in this version against the original eg:
 
-== Resources
+version.changes.each_pair do |key,values|
 
-Install
+	Field: <%= key %>
+		Original: <%= values.first % >
+ 	  Updated: <%= value.last %>
 
-* gem install acts_as_versioned
+h2. Install: 
+1. cd vendor/gems
+2. git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
+3. Add a migration:
 
-Rubyforge project
+	class VersionTable < ActiveRecord::Migration
+	  def self.up
+	    Article.create_versioned_table
+	  end
 
-* http://rubyforge.org/projects/ar-versioned
+	  def self.down
+	    Article.drop_versioned_table
+	  end
+	end
+      
+4. In your model:
 
-RDocs
+	class Article < ActiveRecord::Base
+	  acts_as_versioned_with_changes
+	end
 
-* http://ar-versioned.rubyforge.org
+h2. Usage
+                                              s
+Same as acts_as_versioned, just adds a serialized changes column if you need a hash to indicate the changes made from one version to the next.   
+         
 
-Subversion
-
-* http://techno-weenie.net/svn/projects/acts_as_versioned
-
-Collaboa
-
-* http://collaboa.techno-weenie.net/repository/browse/acts_as_versioned
-
-Special thanks to Dreamer on ##rubyonrails for help in early testing.  His ServerSideWiki (http://serversidewiki.com) 
-was the first project to use acts_as_versioned <em>in the wild</em>.
