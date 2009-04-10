@@ -13,14 +13,14 @@ h2. Install:
 # cd vendor/gems
 # git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
 # Add a migration:       
-	class VersionTable &gt; ActiveRecord::Migration
+	<pre>class VersionTable &gt; ActiveRecord::Migration
 		def self.up
 	  	Article.create_versioned_table
 		end
 	  def self.down
 	    Article.drop_versioned_table
 	  end
-	end   
+	end</pre>   
 # In your model:
 	class Article &gt; ActiveRecord::Base
 	  acts_as_versioned_with_changes
