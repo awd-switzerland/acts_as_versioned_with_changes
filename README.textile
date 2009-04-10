@@ -1,5 +1,4 @@
-
-h2.	acts_as_versioned_with_changes
+acts_as_versioned_with_changes
 
 Fork of technoweenie’s acts_as_versioned gem. My fork just adds a serialized 'changes' column to the versioned table which you can use do show the changes that were made in this version against the original eg:
 
@@ -9,7 +8,7 @@ Fork of technoweenie’s acts_as_versioned gem. My fork just adds a serialized '
 	 	Updated: <%= value.last %>
 	<% end %>   
 
-h2. Install: 
+Install: 
 
 # cd vendor/gems
 # git clone git://github.com/gordonbisnor/acts_as_versioned_with_changes.git
@@ -28,7 +27,7 @@ h2. Install:
 	  acts_as_versioned_with_changes
 	end
 
-h2. Usage
+Usage
 
 Same as acts_as_versioned, just adds a serialized changes column if you need a hash to indicate the changes made from one version to the next.   
          
