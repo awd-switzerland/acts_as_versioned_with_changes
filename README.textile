@@ -3,8 +3,8 @@ h1.	acts_as_versioned_with_changes
 Fork of technoweenie’s acts_as_versioned gem. My fork just adds a serialized 'changes' column to the versioned table which you can use do show the changes that were made in this version against the original eg:
 
 	<% version.changes.each_pair do |key,values| %>
-		Field: <%= key %><br />
-		Original: <%= values.first %><br />
+		Field: <%= key %>
+		Original: <%= values.first %>
 	 	Updated: <%= value.last %>
 	<% end %>   
 
@@ -15,9 +15,9 @@ h2. Install:
 # Add a migration:
 
 	class VersionTable &gt; ActiveRecord::Migration
-	  def self.up
-	    Article.create_versioned_table
-	  end
+		def self.up
+	  	Article.create_versioned_table
+		end
 
 	  def self.down
 	    Article.drop_versioned_table
