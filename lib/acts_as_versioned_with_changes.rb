@@ -221,6 +221,11 @@ module ActiveRecord #:nodoc:
               options[:if_changed] = [options[:if_changed]] unless options[:if_changed].is_a?(Array)
               self.version_if_changed = options[:if_changed].map(&:to_s)
             end
+            
+            def latest_versions(for_time)
+              data = self.versions.find :all, :conditions => ["updated_at BETWEEN ? AND ? AND version <> 1", Time.now - for_time, Time.now ]
+              return data unless data.blank?
+            end
 
             include options[:extend] if options[:extend].is_a?(Module)
           CLASS_METHODS
@@ -251,6 +256,10 @@ module ActiveRecord #:nodoc:
             def versions_count
               page.version
             end
+            
+            def self.before_version_number(number)
+                find(:first, :select => :version, :order => 'version desc', :conditions => ["version < ?", number]).version
+            end
           end
 
           # GBI - SERIALIZE CHANGES COLUMN IN VERSIONED CLASS
@@ -271,11 +280,14 @@ module ActiveRecord #:nodoc:
         def self.included(base) # :nodoc:
           base.extend ClassMethods
         end
+        
+        @@without_revision = 0
 
         # Saves a version of the model in the versioned table.  This is called in the after_save callback by default
         def save_version
           if @saving_version
             @saving_version = nil
+            @@without_revision = 0
             rev = self.class.versioned_class.new
             clone_versioned_model(self, rev)
             rev.send("#{self.class.version_column}=", send(self.class.version_column))
@@ -321,6 +333,7 @@ module ActiveRecord #:nodoc:
         end
 
         def save_without_revision!
+          @@without_revision = 1
           without_locking do
             without_revision do
               save!
@@ -396,8 +409,10 @@ module ActiveRecord #:nodoc:
 
         # GBI INCLUDE CHANGES IN VERSIONED COPY AFTER SAVE
         def update_version_to_reflect_changes
-          self.reload
-          self.versions.last.update_attribute(:changes,@changes)
+          unless @@without_revision == 1
+            self.reload
+            self.versions.last.update_attribute(:changes,@changes) unless self.versions.last.nil?
+          end
         end
         
           # sets the new version before saving, unless you're using optimistic locking.  In that case, let it take care of the version.
